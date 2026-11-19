@@ -1,6 +1,7 @@
 # T07 — Audio Synthesizer
 
-**Branch**: `feature/0.1.0-audio-synth`
+**Branch**: `feature/0.1.0-audio-synth-C`
+**Owner**: C
 **Status**: Pending
 **Version**: 0.1.0
 

@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Biome & TypeScript Guard",
+  "description": "Runs Biome formatting/lint checks and TypeScript type verification whenever source files are saved.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "pnpm biome check --write src/ && pnpm tsc --noEmit"
+  }
+}

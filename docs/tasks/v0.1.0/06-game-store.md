@@ -1,6 +1,7 @@
 # T05 — Game Store
 
-**Branch**: `feature/0.1.0-game-store`
+**Branch**: `feature/0.1.0-game-store-C`
+**Owner**: C
 **Status**: Pending
 **Version**: 0.1.0
 

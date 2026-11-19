@@ -1,6 +1,7 @@
 # T03 — GitHub Client
 
-**Branch**: `feature/0.1.0-github-client`
+**Branch**: `feature/0.1.0-github-client-Y`
+**Owner**: Y
 **Status**: Pending
 **Version**: 0.1.0
 

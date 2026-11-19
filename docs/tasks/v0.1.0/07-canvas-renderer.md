@@ -1,6 +1,7 @@
 # T06 — Canvas Renderer
 
-**Branch**: `feature/0.1.0-canvas-renderer`
+**Branch**: `feature/0.1.0-canvas-renderer-Y`
+**Owner**: Y
 **Status**: Pending
 **Version**: 0.1.0
 

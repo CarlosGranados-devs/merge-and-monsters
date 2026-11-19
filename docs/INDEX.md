@@ -76,18 +76,23 @@ docs/
 
 ### Version `0.1.0` — `roadmap/v0.1.0/`
 
-| No. | Branch | File | Status |
-|-----|--------|------|--------|
-| R01 | `chore/0.1.0-project-foundation` | `roadmap/v0.1.0/01-project-foundation.md` | In Progress |
-| R02 | `feature/0.1.0-scaffold` | `roadmap/v0.1.0/02-scaffold.md` | Planned |
-| R03 | `feature/0.1.0-github-client` | `roadmap/v0.1.0/03-github-client.md` | Planned |
-| R04 | `feature/0.1.0-telemetry-mapper` | `roadmap/v0.1.0/04-telemetry-mapper.md` | Planned |
-| R05 | `feature/0.1.0-game-store` | `roadmap/v0.1.0/05-game-store.md` | Planned |
-| R06 | `feature/0.1.0-canvas-renderer` | `roadmap/v0.1.0/06-canvas-renderer.md` | Planned |
-| R07 | `feature/0.1.0-audio-synth` | `roadmap/v0.1.0/07-audio-synth.md` | Planned |
-| R08 | `feature/0.1.0-hud-components` | `roadmap/v0.1.0/08-hud-components.md` | Planned |
-| R09 | `chore/0.1.0-review-phase-1` | `roadmap/v0.1.0/09-review-phase-1.md` | Planned |
-| R10 | `chore/release-0.1.0` | `roadmap/v0.1.0/10-release-0.1.0.md` | Planned |
+Full plan with parallel-work map, file ownership table, and checkpoint rules: `roadmap/v0.1.0/README.md`.
+
+| No. | Branch | Owner | Phase | Status |
+|-----|--------|-------|-------|--------|
+| R01 | `chore/0.1.0-project-foundation` | Y | 0 — Foundation | Completed |
+| R02 | `feature/0.1.0-scaffold-Y` | Y | 1 — Base | Planned |
+| R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | Planned |
+| R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | Planned |
+| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | Planned |
+| R06 | `feature/0.1.0-game-store-C` | C | 3 — State | Planned |
+| R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | Planned |
+| R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | Planned |
+| R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | Planned |
+| R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | Planned |
+| R11 | `fix/0.1.0-checkpoint-3` | C | CP-3 | Planned |
+| R12 | `chore/0.1.0-review-phase-1` | Y | 5 — Close | Planned |
+| R13 | `chore/release-0.1.0` | C | 5 — Close | Planned |
 
 ---
 
@@ -95,18 +100,21 @@ docs/
 
 ### Version `0.1.0` — `tasks/v0.1.0/`
 
-| No. | File | Branch | Status |
-|-----|------|--------|--------|
-| T01 | `tasks/v0.1.0/01-project-foundation.md` | R01 | In Progress |
-| T02 | `tasks/v0.1.0/02-scaffold.md` | R02 | Pending |
-| T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Pending |
-| T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | Pending |
-| T05 | `tasks/v0.1.0/05-game-store.md` | R05 | Pending |
-| T06 | `tasks/v0.1.0/06-canvas-renderer.md` | R06 | Pending |
-| T07 | `tasks/v0.1.0/07-audio-synth.md` | R07 | Pending |
-| T08 | `tasks/v0.1.0/08-hud-components.md` | R08 | Pending |
-| T09 | `tasks/v0.1.0/09-review-phase-1.md` | R09 | Pending |
-| T10 | `tasks/v0.1.0/10-release-0.1.0.md` | R10 | Pending |
+| No. | File | Branch | Owner | Status |
+|-----|------|--------|-------|--------|
+| T01 | `tasks/v0.1.0/01-project-foundation.md` | R01 | Y | Completed |
+| T02 | `tasks/v0.1.0/02-scaffold.md` | R02 | Y | Pending |
+| T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Y | Pending |
+| T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | C | Pending |
+| T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Pending |
+| T06 | `tasks/v0.1.0/06-game-store.md` | R06 | C | Pending |
+| T07 | `tasks/v0.1.0/07-canvas-renderer.md` | R07 | Y | Pending |
+| T08 | `tasks/v0.1.0/08-audio-synth.md` | R08 | C | Pending |
+| T09 | `tasks/v0.1.0/09-checkpoint-2.md` | R09 | C | Pending |
+| T10 | `tasks/v0.1.0/10-hud-components.md` | R10 | Y | Pending |
+| T11 | `tasks/v0.1.0/11-checkpoint-3.md` | R11 | C | Pending |
+| T12 | `tasks/v0.1.0/12-review-phase-1.md` | R12 | Y | Pending |
+| T13 | `tasks/v0.1.0/13-release-0.1.0.md` | R13 | C | Pending |
 
 ---
 
@@ -116,7 +124,7 @@ docs/
 
 | No. | File | Branch | Status |
 |-----|------|--------|--------|
-| 01 | `history/v0.1.0/01-chore-project-foundation.md` | `chore/0.1.0-project-foundation` | In Progress |
+| 01 | `history/v0.1.0/01-chore-project-foundation.md` | `chore/0.1.0-project-foundation` | PR Open |
 
 ---
 
@@ -133,3 +141,4 @@ No findings recorded yet.
 | Date | Change |
 |------|--------|
 | 2025-01-27 | Initial documentation structure created. ADRs, architecture, roadmap, tasks, history, and gotchas folders for v0.1.0. Steering files in .kiro/. |
+| 2025-01-27 | Roadmap redesigned for two-developer parallel work. 13 branches with owner tags (-Y/-C), 3 checkpoints, file ownership table. Tasks renumbered T01-T13. INDEX updated. |

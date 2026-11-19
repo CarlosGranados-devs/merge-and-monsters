@@ -1,6 +1,7 @@
 # T02 — Project Scaffold
 
-**Branch**: `feature/0.1.0-scaffold`
+**Branch**: `feature/0.1.0-scaffold-Y`
+**Owner**: Y
 **Status**: Pending
 **Version**: 0.1.0
 

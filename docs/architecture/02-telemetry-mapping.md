@@ -1,6 +1,6 @@
 # Telemetry Mapping
 
-**Last updated**: 2025-01-27
+**Last updated**: 2026-11-19
 **Version**: 0.1.0
 
 ---
@@ -26,6 +26,20 @@ Both modules are pure at their boundary: `telemetryMapper.ts` has no side effect
 | `GET /repos/{owner}/{repo}/issues?state=open` | Open issues for monster spawning |
 | `GET /repos/{owner}/{repo}/contents/README.md` | README presence check |
 | `GET /repos/{owner}/{repo}/actions/workflows` | CI workflow check |
+
+### Request Budget
+
+A cold connect issues 12 requests: repository metadata, the commits window, five per-commit detail
+requests (for `additions` / `deletions`), merged pull requests, open issues, the closed issue count,
+README presence, and CI workflows. Every request stores its own ETag, so later polls resolve as
+`304` and consume no quota.
+
+`openIssueCount` is taken from the filtered open issue list (entries with `pull_request` removed),
+not from the repository's `open_issues_count`, so the HUD counter and the monster queue always agree.
+
+`closedIssueCount` is read from the `Link` header of `GET /issues?state=closed&per_page=1` (the
+`rel="last"` page number). That endpoint lists pull requests as issues, so the close ratio used for
+hero max HP is approximate.
 
 ### ETag Caching
 

@@ -63,6 +63,12 @@ Developer identities:
 - **Dev Y**: YonaZakkart `<musicyonathan@gmail.com>`
 - **Dev C**: CarlosGranados-devs `<Josuegrana2s@gmail.com>`
 
+For AI-driven branches, use the model's placeholder email:
+- Current session model: **DeepSeek V3.2**
+- Use: `Co-authored-by: DeepSeek <noreply@deepseek.com>`
+- If Kiro is the agent (but model unknown): `<noreply@kiro.dev>`
+- If Claude is the model: `<noreply@anthropic.com>`
+
 ---
 
 ## 3. Agent Workflow

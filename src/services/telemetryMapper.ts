@@ -12,45 +12,45 @@ import type {
 // XP Calculation
 // -------------------------------------
 
-/** Number of merged PRs (after filtering already-processed IDs). */
-function countNewPrs(mergedPrs: RawPr[], processedIds: Set<string>): number {
-  return mergedPrs.filter((pr) => !processedIds.has(pr.toString())).length;
+const MIN_DELTA_LINES = 1;
+const MAX_DELTA_LINES = 2000;
+const XP_PER_MERGED_PR = 50;
+
+/** Diff churn (additions + deletions) clamped to [1, 2000]. */
+function clampDeltaLines(lines: number): number {
+  return Math.max(MIN_DELTA_LINES, Math.min(MAX_DELTA_LINES, lines));
+}
+
+/** XP awarded by a single commit: floor(25 * ln(1 + delta_lines)). */
+function commitXp(commit: RawCommit): number {
+  const deltaLines = clampDeltaLines(commit.stats.additions + commit.stats.deletions);
+  return Math.floor(25 * Math.log(1 + deltaLines));
 }
 
 /**
  * Calculate XP from commits and PRs.
  * Returns `{ totalXp, newProcessedIds }`.
  *
- * Formula: floor(25 * ln(1 + delta_lines)) + 50 * n_pr
- * delta_lines is clamped to [1, 2000].
- * XP is not awarded for IDs already in processedIds.
+ * Formula per commit: floor(25 * ln(1 + delta_lines)), delta_lines clamped to [1, 2000].
+ * Each merged PR adds 50 XP. IDs already in processedIds award nothing.
  */
 export function calculateXp(
   commits: RawCommit[],
   mergedPrs: RawPr[],
   processedIds: Set<string>
 ): { totalXp: number; newProcessedIds: Set<string> } {
-  // delta_lines clamped to [1, 2000] per acceptance criteria:
-  // "delta_lines = 0 clamps to 1 and returns floor(25 * ln(2)) = 17"
-  const rawDelta = commits.reduce((sum, c) => sum + c.stats.additions - c.stats.deletions, 0);
-  const deltaLines = Math.max(1, Math.min(2000, rawDelta));
-  const nPr = countNewPrs(mergedPrs, processedIds);
-  const totalXp = Math.floor(25 * Math.log(1 + deltaLines)) + 50 * nPr;
+  const newCommits = commits.filter((commit) => !processedIds.has(commit.sha));
+  const newPrs = mergedPrs.filter((pr) => !processedIds.has(String(pr.id)));
 
-  // Collect new IDs from commits and PRs that are not already processed
-  const newIds: string[] = [];
-  for (const commit of commits) {
-    if (!processedIds.has(commit.sha)) {
-      newIds.push(commit.sha);
-    }
-  }
-  for (const pr of mergedPrs) {
-    if (!processedIds.has(pr.toString())) {
-      newIds.push(pr.toString());
-    }
-  }
+  const commitXpTotal = newCommits.reduce((sum, commit) => sum + commitXp(commit), 0);
+  const totalXp = commitXpTotal + XP_PER_MERGED_PR * newPrs.length;
 
-  const newProcessedIds = new Set([...processedIds, ...newIds]);
+  const newProcessedIds = new Set([
+    ...processedIds,
+    ...newCommits.map((commit) => commit.sha),
+    ...newPrs.map((pr) => String(pr.id)),
+  ]);
+
   return { totalXp, newProcessedIds };
 }
 
@@ -86,7 +86,7 @@ export function deriveWeaponClass(language: string | null): WeaponClass {
  * Calculate max HP based on repository health.
  * Returns a value in [100, 500].
  *
- * Formula uses closed issue ratio and presence of README/CI.
+ * Formula: 100 + close_ratio * 150 + README bonus 100 + CI bonus 150, capped at 500.
  */
 export function calculateMaxHp(
   closedIssues: number,
@@ -94,22 +94,46 @@ export function calculateMaxHp(
   hasReadme: boolean,
   hasCi: boolean
 ): number {
-  if (totalIssues === 0) return 100; // default minimal HP
+  if (totalIssues <= 0) return 100;
 
-  const ratio = closedIssues / totalIssues; // [0, 1]
-  // Base HP scales with the close ratio; README and CI give small bonuses
-  let base = Math.round(100 + ratio * 200); // [100, 300]
+  const ratio = Math.min(1, Math.max(0, closedIssues / totalIssues));
+  const hp = 100 + ratio * 150 + (hasReadme ? 100 : 0) + (hasCi ? 150 : 0);
 
-  if (hasReadme) base += 20;
-  if (hasCi) base += 20;
-
-  // Clamp to [100, 500]
-  return Math.max(100, Math.min(500, base));
+  return Math.max(100, Math.min(500, Math.round(hp)));
 }
 
 // -------------------------------------
 // Monster Queue Building
 // -------------------------------------
+
+const DAY_MS = 86_400_000;
+const MAX_AGE_DAYS = 60;
+
+interface ArchetypeRule {
+  labels: string[];
+  archetype: MonsterArchetype;
+  baseHp: number;
+}
+
+const ARCHETYPE_RULES: ArchetypeRule[] = [
+  { labels: ['bug', 'critical'], archetype: 'regressionGolem', baseHp: 150 },
+  { labels: ['enhancement', 'feature'], archetype: 'backlogWraith', baseHp: 100 },
+  { labels: ['documentation', 'chore', 'debt'], archetype: 'debtSlime', baseHp: 75 },
+];
+
+const DEFAULT_ARCHETYPE: MonsterArchetype = 'mysteryCrawler';
+const DEFAULT_BASE_HP = 75;
+
+function resolveArchetype(issue: RawIssue): ArchetypeRule {
+  const labels = issue.labels.map((label) => label.name.toLowerCase());
+  return (
+    ARCHETYPE_RULES.find((rule) => rule.labels.some((label) => labels.includes(label))) ?? {
+      labels: [],
+      archetype: DEFAULT_ARCHETYPE,
+      baseHp: DEFAULT_BASE_HP,
+    }
+  );
+}
 
 /** Build the monster queue from open issues, sorted by severity (highest HP first). */
 export function buildMonsterQueue(openIssues: RawIssue[]): MonsterEntity[] {
@@ -119,48 +143,36 @@ export function buildMonsterQueue(openIssues: RawIssue[]): MonsterEntity[] {
         id: -1,
         archetype: 'trainingDummy',
         name: 'Training Dummy',
-        hp: 10,
-        maxHp: 10,
-        goldReward: 5,
+        hp: 50,
+        maxHp: 50,
+        goldReward: 0,
         issueNumber: 0,
       },
     ];
   }
 
   return openIssues
-    .filter((issue) => !issue.labels.some((l) => l.name === 'pull_request'))
-    .sort((a, b) => {
-      // Sort by severity: issues with "bug" label first, then by age (created_at)
-      const aIsBug = a.labels.some((l) => l.name === 'bug');
-      const bIsBug = b.labels.some((l) => l.name === 'bug');
-      if (aIsBug && !bIsBug) return -1;
-      if (!aIsBug && bIsBug) return 1;
-
-      // Compare by age (older = more severe)
-      const aDate = new Date(a.created_at).getTime();
-      const bDate = new Date(b.created_at).getTime();
-      return bDate - aDate; // oldest first
-    })
-    .map((issue, index) => {
+    .filter((issue) => !issue.labels.some((label) => label.name === 'pull_request'))
+    .map((issue) => {
+      const rule = resolveArchetype(issue);
       const ageDays = Math.max(
         0,
-        Math.floor((Date.now() - new Date(issue.created_at).getTime()) / 86400000)
+        Math.floor((Date.now() - new Date(issue.created_at).getTime()) / DAY_MS)
       );
-      const isBug = issue.labels.some((l) => l.name === 'bug');
-      const archetype: MonsterArchetype = isBug ? 'regressionGolem' : 'backlogWraith';
-      const baseHp = isBug ? 150 : 100;
-      const maxHp = Math.max(100, Math.min(1500, baseHp * (1 + 0.15 * Math.min(ageDays, 60))));
+      const maxHp = Math.round(rule.baseHp * (1 + 0.15 * Math.min(ageDays, MAX_AGE_DAYS)));
 
       return {
         id: issue.number,
-        archetype,
+        archetype: rule.archetype,
         name: issue.title || `Issue #${issue.number}`,
-        hp: Math.round(maxHp - index * 5), // slight decrease for queue diversity
+        hp: maxHp,
         maxHp,
-        goldReward: Math.max(1, 10 + index),
+        goldReward: 0,
         issueNumber: issue.number,
       };
-    });
+    })
+    .sort((a, b) => b.maxHp - a.maxHp)
+    .map((monster, index) => ({ ...monster, goldReward: 10 + index }));
 }
 
 // -------------------------------------
@@ -173,34 +185,22 @@ export function mapToCombatEvents(
   newPrs: RawPr[],
   closedIssues: RawIssue[]
 ): CombatEvent[] {
-  const events: CombatEvent[] = [];
+  const timestamp = Date.now();
 
-  // XP gain events from new commits
-  for (const _commit of newCommits) {
-    events.push({
-      type: 'xpGain',
-      xp: 1, // minimal XP per commit; actual XP calculated at checkpoint
-      timestamp: Date.now(),
-    });
-  }
-
-  // Level-up event for each merged PR
-  for (const _pr of newPrs) {
-    events.push({
-      type: 'levelUp',
-      level: 1, // will be updated by the store
-      timestamp: Date.now(),
-    });
-  }
-
-  // Monster defeated events for closed issues
-  for (const _issue of closedIssues) {
-    events.push({
-      type: 'monsterDefeated',
-      gold: 10,
-      timestamp: Date.now(),
-    });
-  }
-
-  return events;
+  return [
+    ...newCommits.map((commit) => ({
+      type: 'xpGain' as const,
+      xp: commitXp(commit),
+      timestamp,
+    })),
+    ...newPrs.map(() => ({
+      type: 'xpGain' as const,
+      xp: XP_PER_MERGED_PR,
+      timestamp,
+    })),
+    ...closedIssues.map(() => ({
+      type: 'monsterDefeated' as const,
+      timestamp,
+    })),
+  ];
 }

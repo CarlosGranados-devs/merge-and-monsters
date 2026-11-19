@@ -1,9 +1,9 @@
 # INDEX — Documentation Map
 
 **Project**: Merge & Monsters
-**Last updated**: 2025-01-27
+**Last updated**: 2026-11-19
 **Current version**: `0.1.0` (in progress)
-**Branch**: `chore/0.1.0-project-foundation`
+**Branch**: `feature/0.1.0-github-client-Y`
 
 > Entry point for agents: `.kiro/steering/agents.md`. Work conventions: `.kiro/steering/conventions.md`.
 
@@ -81,8 +81,8 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | No. | Branch | Owner | Phase | Status |
 |-----|--------|-------|-------|--------|
 | R01 | `chore/0.1.0-project-foundation` | Y | 0 — Foundation | Completed |
-| R02 | `feature/0.1.0-scaffold-Y` | Y | 1 — Base | Planned |
-| R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | Planned |
+| R02 | `feature/0.1.0-scaffold-Y` | Y | 1 — Base | Completed |
+| R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | In Review |
 | R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | Planned |
 | R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | Planned |
 | R06 | `feature/0.1.0-game-store-C` | C | 3 — State | Planned |
@@ -103,8 +103,8 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | No. | File | Branch | Owner | Status |
 |-----|------|--------|-------|--------|
 | T01 | `tasks/v0.1.0/01-project-foundation.md` | R01 | Y | Completed |
-| T02 | R02 | Y | Completed |
-| T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Y | Pending |
+| T02 | `tasks/v0.1.0/02-scaffold.md` | R02 | Y | Completed |
+| T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Y | Completed |
 | T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | C | Pending |
 | T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Pending |
 | T06 | `tasks/v0.1.0/06-game-store.md` | R06 | C | Pending |
@@ -124,7 +124,9 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 
 | No. | File | Branch | Status |
 |-----|------|--------|--------|
-| 01 | `history/v0.1.0/01-chore-project-foundation.md` | `chore/0.1.0-project-foundation` | PR Open |
+| 01 | `history/v0.1.0/01-chore-project-foundation.md` | `chore/0.1.0-project-foundation` | Merged |
+| 02 | `history/v0.1.0/02-feature-scaffold-Y.md` | `feature/0.1.0-scaffold-Y` | Merged |
+| 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | PR Open |
 
 ---
 
@@ -142,3 +144,4 @@ No findings recorded yet.
 |------|--------|
 | 2025-01-27 | Initial documentation structure created. ADRs, architecture, roadmap, tasks, history, and gotchas folders for v0.1.0. Steering files in .kiro/. |
 | 2025-01-27 | Roadmap redesigned for two-developer parallel work. 13 branches with owner tags (-Y/-C), 3 checkpoints, file ownership table. Tasks renumbered T01-T13. INDEX updated. |
+| 2026-11-19 | R02 merged. R03 (GitHub client) pushed: ETag cache, sandbox dataset, rate-limit error, unit tests, `vitest.config.ts`. T03 completed. INDEX and roadmap statuses refreshed. |

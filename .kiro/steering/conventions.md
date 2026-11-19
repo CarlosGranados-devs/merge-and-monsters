@@ -89,6 +89,19 @@ Developer identities:
 - **Dev Y**: YonaZakkart `<musicyonathan@gmail.com>`
 - **Dev C**: CarlosGranados-devs `<Josuegrana2s@gmail.com>`
 
+For AI-driven branches, use the model's placeholder email:
+| Model | Co‑author email |
+|---|---|
+| Kiro (agent‑driven) | `<noreply@kiro.dev>` |
+| DeepSeek (V3.2+) | `<noreply@deepseek.com>` |
+| Claude (any) | `<noreply@anthropic.com>` |
+| Other model | `<noreply@model.ai>` (generic placeholder) |
+
+The current session model is **DeepSeek V3.2**, so commit heavy commits with:
+```
+Co-authored-by: DeepSeek <noreply@deepseek.com>
+```
+
 ## 6. Versioning (SemVer)
 
 | Change | Increment | Example |

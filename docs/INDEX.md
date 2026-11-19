@@ -128,7 +128,7 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 02 | `history/v0.1.0/02-feature-scaffold-Y.md` | `feature/0.1.0-scaffold-Y` | Merged |
 | 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | Merged |
 | 04 | `history/v0.1.0/04-feature-telemetry-mapper-C.md` | `feature/0.1.0-telemetry-mapper-C` | Merged |
-| 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | Ready for PR |
+| 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | PR Open |
 
 ---
 

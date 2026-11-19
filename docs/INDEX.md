@@ -103,7 +103,7 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | No. | File | Branch | Owner | Status |
 |-----|------|--------|-------|--------|
 | T01 | `tasks/v0.1.0/01-project-foundation.md` | R01 | Y | Completed |
-| T02 | `tasks/v0.1.0/02-scaffold.md` | R02 | Y | Pending |
+| T02 | R02 | Y | Completed |
 | T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Y | Pending |
 | T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | C | Pending |
 | T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Pending |

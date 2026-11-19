@@ -2,7 +2,7 @@
 
 **Branch**: `chore/0.1.0-project-foundation`
 **Status**: PR Open
-**PR**: (pending push)
+**PR**: https://github.com/YonaZakkart/merge-and-monsters/pull/new/chore/0.1.0-project-foundation
 **Version**: 0.1.0
 **Date**: 2025-01-27
 

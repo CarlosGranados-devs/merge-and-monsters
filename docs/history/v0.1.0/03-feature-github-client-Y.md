@@ -1,8 +1,8 @@
 # 03 — feature/0.1.0-github-client-Y
 
 **Branch**: `feature/0.1.0-github-client-Y`
-**Status**: Ready for PR
-**PR**: (pending push)
+**Status**: PR Open
+**PR**: https://github.com/YonaZakkart/merge-and-monsters/pull/3
 **Owner**: Y
 **Version**: 0.1.0
 **Date**: 2026-11-19

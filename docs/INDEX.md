@@ -126,7 +126,7 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 |-----|------|--------|--------|
 | 01 | `history/v0.1.0/01-chore-project-foundation.md` | `chore/0.1.0-project-foundation` | Merged |
 | 02 | `history/v0.1.0/02-feature-scaffold-Y.md` | `feature/0.1.0-scaffold-Y` | Merged |
-| 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | Ready for PR |
+| 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | PR Open |
 
 ---
 

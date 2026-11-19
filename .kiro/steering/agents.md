@@ -51,12 +51,17 @@ Merge & Monsters is a **browser-based retro pixel-art dungeon crawler RPG** powe
 
 ### Co-authorship
 
-Exactly **one commit per branch** carries a `Co-authored-by` trailer (the heaviest commit). Alternate between sessions.
+Exactly **one commit per branch** carries a `Co-authored-by` trailer (the heaviest commit). The co-author is always the **other** party — cross-credit, not self-credit.
 
-```text
-Co-authored-by: CarlosGranados-devs <Josuegrana2s@gmail.com>
-Co-authored-by: POCHO955 <zelayajosue285@gmail.com>
-```
+| Branch owner | Co-author to use |
+|---|---|
+| Y (`-Y` branches) | `CarlosGranados-devs <Josuegrana2s@gmail.com>` |
+| C (`-C` branches) | `YonaZakkart <musicyonathan@gmail.com>` |
+| Kiro (agent-driven) | `Kiro <kiro@kiro.dev>` |
+
+Developer identities:
+- **Dev Y**: YonaZakkart `<musicyonathan@gmail.com>`
+- **Dev C**: CarlosGranados-devs `<Josuegrana2s@gmail.com>`
 
 ---
 

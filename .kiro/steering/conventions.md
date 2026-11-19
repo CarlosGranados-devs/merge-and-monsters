@@ -69,12 +69,25 @@ Rules:
 
 ## 5. Co-authorship
 
-Exactly **one commit per branch** carries a `Co-authored-by` trailer (the heaviest commit of that branch). Alternate between sessions; both authors do not need to appear in every branch.
+Exactly **one commit per branch** carries a `Co-authored-by` trailer (the heaviest commit of that branch).
+
+The rule is **cross-credit**: the co-author is the other party, not the branch owner.
+
+| Branch owner | Co-author on that branch |
+|---|---|
+| Y (`-Y` branches) | `CarlosGranados-devs <Josuegrana2s@gmail.com>` |
+| C (`-C` branches) | `YonaZakkart <musicyonathan@gmail.com>` |
+| Kiro (agent-driven branches) | `Kiro <kiro@kiro.dev>` |
 
 ```text
 Co-authored-by: CarlosGranados-devs <Josuegrana2s@gmail.com>
-Co-authored-by: POCHO955 <zelayajosue285@gmail.com>
+Co-authored-by: YonaZakkart <musicyonathan@gmail.com>
+Co-authored-by: Kiro <kiro@kiro.dev>
 ```
+
+Developer identities:
+- **Dev Y**: YonaZakkart `<musicyonathan@gmail.com>`
+- **Dev C**: CarlosGranados-devs `<Josuegrana2s@gmail.com>`
 
 ## 6. Versioning (SemVer)
 

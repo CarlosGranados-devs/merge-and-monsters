@@ -77,30 +77,19 @@ The rule is **cross-credit**: the co-author is the other party, not the branch o
 |---|---|
 | Y (`-Y` branches) | `CarlosGranados-devs <Josuegrana2s@gmail.com>` |
 | C (`-C` branches) | `YonaZakkart <musicyonathan@gmail.com>` |
-| Kiro (agent-driven branches) | `Kiro <kiro@kiro.dev>` |
 
 ```text
 Co-authored-by: CarlosGranados-devs <Josuegrana2s@gmail.com>
 Co-authored-by: YonaZakkart <musicyonathan@gmail.com>
-Co-authored-by: Kiro <kiro@kiro.dev>
 ```
 
 Developer identities:
 - **Dev Y**: YonaZakkart `<musicyonathan@gmail.com>`
 - **Dev C**: CarlosGranados-devs `<Josuegrana2s@gmail.com>`
 
-For AI-driven branches, use the model's placeholder email:
-| Model | Co‑author email |
-|---|---|
-| Kiro (agent‑driven) | `<noreply@kiro.dev>` |
-| DeepSeek (V3.2+) | `<noreply@deepseek.com>` |
-| Claude (any) | `<noreply@anthropic.com>` |
-| Other model | `<noreply@model.ai>` (generic placeholder) |
-
-The current session model is **DeepSeek V3.2**, so commit heavy commits with:
-```
-Co-authored-by: DeepSeek <noreply@deepseek.com>
-```
+AI agents are **not** listed as co-authors. Their emails are not tied to a GitHub user account
+(DeepSeek is an organization, and a `noreply` placeholder never renders a co-author chip), so the
+trailer adds noise without a visible credit. Agent attribution lives in `docs/history/<version>/`.
 
 ## 6. Versioning (SemVer)
 

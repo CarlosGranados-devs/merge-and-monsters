@@ -1,0 +1,56 @@
+{
+  "connect": {
+    "title": "Introduce un repositorio de GitHub",
+    "slugPlaceholder": "propietario/repo",
+    "patPlaceholder": "Token de acceso personal de GitHub (opcional)",
+    "connectButton": "Conectar repositorio",
+    "sandboxButton": "Iniciar Sandbox del calabozo",
+    "errorRateLimit": "Límite de tasa alcanzado. Añade un PAT o usa Sandbox.",
+    "errorNotFound": "Repositorio no encontrado. Revisa el slug e inténtalo de nuevo."
+  },
+  "hud": {
+    "hero": "Héroe",
+    "hp": "PV",
+    "xp": "XP",
+    "level": "Nivel",
+    "gold": "Oro",
+    "weapon": "Arma",
+    "mute": "Silenciar",
+    "unmute": "Activar sonido"
+  },
+  "combat": {
+    "heroAttacks": "{{hero}} ataca a {{monster}} causando {{damage}} de daño.",
+    "monsterAttacks": "{{monster}} contraataca causando {{damage}} de daño.",
+    "monsterDefeated": "{{monster}} derrotado. +{{gold}} oro otorgado.",
+    "levelUp": "¡Sube de nivel! {{hero}} ahora es nivel {{level}}.",
+    "commitXp": "Commit {{sha}} otorga {{xp}} XP.",
+    "prXp": "PR #{{number}} fusionado. +{{xp}} XP.",
+    "issueClose": "Issue #{{number}} cerrada. {{monster}} cae.",
+    "trainingDummy": "No hay issues abiertos. Dummy de entrenamiento aparecido."
+  },
+  "sandbox": {
+    "title": "Controles de Sandbox",
+    "simulateCommit": "Simular commit",
+    "simulatePr": "Simular fusión de PR",
+    "simulateIssue": "Simular cierre de issue"
+  },
+  "weapon": {
+    "strictBlade": "Hoja Estricta",
+    "scriptDagger": "Daga de Script",
+    "scriptStaff": "Bastón de Script",
+    "ironFang": "Colmillo de Hierro",
+    "goHammer": "Martillo Go",
+    "castMace": "Maza de Cast",
+    "rawEdge": "Filo Crudo",
+    "containerShield": "Escudo de Contenedor",
+    "gemRod": "Vara de Gema",
+    "adventurerFist": "Puño de Aventurero"
+  },
+  "monster": {
+    "regressionGolem": "Golem de Regresión",
+    "backlogWraith": "Espectro de Pendientes",
+    "debtSlime": "Limo de Deuda",
+    "mysteryCrawler": "Reptador Misterioso",
+    "trainingDummy": "Dummy de Entrenamiento"
+  }
+}

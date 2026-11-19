@@ -1,0 +1,56 @@
+{
+  "connect": {
+    "title": "Enter a GitHub Repository",
+    "slugPlaceholder": "owner/repo",
+    "patPlaceholder": "GitHub Personal Access Token (optional)",
+    "connectButton": "Connect Repository",
+    "sandboxButton": "Launch Dungeon Sandbox",
+    "errorRateLimit": "GitHub rate limit reached. Add a PAT or use Sandbox mode.",
+    "errorNotFound": "Repository not found. Check the slug and try again."
+  },
+  "hud": {
+    "hero": "Hero",
+    "hp": "HP",
+    "xp": "XP",
+    "level": "Level",
+    "gold": "Gold",
+    "weapon": "Weapon",
+    "mute": "Mute",
+    "unmute": "Unmute"
+  },
+  "combat": {
+    "heroAttacks": "{{hero}} attacks {{monster}} for {{damage}} damage.",
+    "monsterAttacks": "{{monster}} strikes back for {{damage}} damage.",
+    "monsterDefeated": "{{monster}} defeated. +{{gold}} gold awarded.",
+    "levelUp": "Level up! {{hero}} is now level {{level}}.",
+    "commitXp": "Commit {{sha}} awarded {{xp}} XP.",
+    "prXp": "PR #{{number}} merged. +{{xp}} XP.",
+    "issueClose": "Issue #{{number}} closed. {{monster}} falls.",
+    "trainingDummy": "No open issues found. Training Dummy spawned."
+  },
+  "sandbox": {
+    "title": "Sandbox Controls",
+    "simulateCommit": "Simulate Commit",
+    "simulatePr": "Simulate PR Merge",
+    "simulateIssue": "Simulate Issue Close"
+  },
+  "weapon": {
+    "strictBlade": "Strict Blade",
+    "scriptDagger": "Script Dagger",
+    "scriptStaff": "Script Staff",
+    "ironFang": "Iron Fang",
+    "goHammer": "Go Hammer",
+    "castMace": "Cast Mace",
+    "rawEdge": "Raw Edge",
+    "containerShield": "Container Shield",
+    "gemRod": "Gem Rod",
+    "adventurerFist": "Adventurer Fist"
+  },
+  "monster": {
+    "regressionGolem": "Regression Golem",
+    "backlogWraith": "Backlog Wraith",
+    "debtSlime": "Debt Slime",
+    "mysteryCrawler": "Mystery Crawler",
+    "trainingDummy": "Training Dummy"
+  }
+}

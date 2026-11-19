@@ -57,17 +57,14 @@ Exactly **one commit per branch** carries a `Co-authored-by` trailer (the heavie
 |---|---|
 | Y (`-Y` branches) | `CarlosGranados-devs <Josuegrana2s@gmail.com>` |
 | C (`-C` branches) | `YonaZakkart <musicyonathan@gmail.com>` |
-| Kiro (agent-driven) | `Kiro <kiro@kiro.dev>` |
 
 Developer identities:
 - **Dev Y**: YonaZakkart `<musicyonathan@gmail.com>`
 - **Dev C**: CarlosGranados-devs `<Josuegrana2s@gmail.com>`
 
-For AI-driven branches, use the model's placeholder email:
-- Current session model: **DeepSeek V3.2**
-- Use: `Co-authored-by: DeepSeek <noreply@deepseek.com>`
-- If Kiro is the agent (but model unknown): `<noreply@kiro.dev>`
-- If Claude is the model: `<noreply@anthropic.com>`
+AI agents are **not** listed as co-authors: a `noreply` placeholder is not tied to a GitHub user
+account, so GitHub never renders it as a co-author. Agent attribution lives in
+`docs/history/<version>/`.
 
 ---
 

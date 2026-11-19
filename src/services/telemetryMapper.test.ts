@@ -14,9 +14,17 @@ describe('telemetryMapper', () => {
   describe('calculateXp', () => {
     it('clamps delta_lines to [1, 2000] and computes XP correctly', () => {
       // delta_lines = 0 → clamped to 1 → floor(25 * ln(2)) = 17
-      // no PRs in this test, so totalXp = 17
-      const { totalXp } = calculateXp([], [], new Set());
-      expect(totalXp).toBe(17);
+      const zeroDelta: RawCommit[] = [
+        {
+          sha: 'zero-delta',
+          message: 'chore: noop',
+          author: { login: 'user', avatar_url: '' },
+          stats: { additions: 0, deletions: 0 },
+          date: '2024-01-01T00:00:00Z',
+        },
+      ];
+      expect(calculateXp(zeroDelta, [], new Set()).totalXp).toBe(17);
+      expect(calculateXp([], [], new Set()).totalXp).toBe(0);
     });
 
     it('with delta_lines = 3000 clamped to 2000 returns 190', () => {
@@ -25,7 +33,7 @@ describe('telemetryMapper', () => {
           sha: 'abc123',
           message: 'feat: add stuff',
           author: { login: 'user', avatar_url: '' },
-          stats: { additions: 2000, deletions: 0 },
+          stats: { additions: 3000, deletions: 0 },
           date: '2024-01-01T00:00:00Z',
         },
       ];
@@ -34,9 +42,44 @@ describe('telemetryMapper', () => {
       expect(totalXp).toBe(190);
     });
 
+    it('uses diff churn (additions + deletions), not the net line count', () => {
+      const commits: RawCommit[] = [
+        {
+          sha: 'churn',
+          message: 'refactor: rewrite file',
+          author: { login: 'user', avatar_url: '' },
+          stats: { additions: 100, deletions: 100 },
+          date: '2024-01-01T00:00:00Z',
+        },
+      ];
+      // churn = 200 → floor(25 * ln(201)) = 132, net would clamp to 1 → 17
+      expect(calculateXp(commits, [], new Set()).totalXp).toBe(132);
+    });
+
+    it('sums XP per commit instead of applying one log to the whole window', () => {
+      const commits: RawCommit[] = [
+        {
+          sha: 'small-a',
+          message: 'fix: a',
+          author: { login: 'user', avatar_url: '' },
+          stats: { additions: 10, deletions: 0 },
+          date: '2024-01-01T00:00:00Z',
+        },
+        {
+          sha: 'small-b',
+          message: 'fix: b',
+          author: { login: 'user', avatar_url: '' },
+          stats: { additions: 10, deletions: 0 },
+          date: '2024-01-02T00:00:00Z',
+        },
+      ];
+      // 2 * floor(25 * ln(11)) = 2 * 59 = 118
+      expect(calculateXp(commits, [], new Set()).totalXp).toBe(118);
+    });
+
     it('does not award XP for already-processed IDs', () => {
       const processed = new Set(['abc123']);
-      const { newProcessedIds } = calculateXp(
+      const { totalXp, newProcessedIds } = calculateXp(
         [
           {
             sha: 'abc123',
@@ -49,13 +92,31 @@ describe('telemetryMapper', () => {
         [],
         processed
       );
+      expect(totalXp).toBe(0);
       expect(newProcessedIds.has('abc123')).toBe(true);
-      // New ID should not be added since it was already processed
       expect(newProcessedIds.size).toBe(1);
     });
 
+    it('deduplicates merged PRs by numeric id', () => {
+      const prs: RawPr[] = [
+        {
+          id: 42,
+          number: 7,
+          title: 'Fix bug',
+          merged_at: '2024-01-01',
+          user: { login: 'user' },
+          labels: [],
+        },
+      ];
+      const first = calculateXp([], prs, new Set());
+      expect(first.totalXp).toBe(50);
+      expect(first.newProcessedIds.has('42')).toBe(true);
+
+      const second = calculateXp([], prs, first.newProcessedIds);
+      expect(second.totalXp).toBe(0);
+    });
+
     it('awards 50 XP per new merged PR', () => {
-      // delta_lines clamped to 1 → floor(25 * ln(2)) = 17, plus 50 XP from PR = 67 total
       const { totalXp } = calculateXp(
         [],
         [
@@ -70,7 +131,7 @@ describe('telemetryMapper', () => {
         ],
         new Set()
       );
-      expect(totalXp).toBe(67);
+      expect(totalXp).toBe(50);
     });
   });
 
@@ -155,6 +216,9 @@ describe('telemetryMapper', () => {
       expect(queue).toHaveLength(1);
       expect(queue[0].archetype).toBe('trainingDummy');
       expect(queue[0].name).toBe('Training Dummy');
+      expect(queue[0].hp).toBe(50);
+      expect(queue[0].maxHp).toBe(50);
+      expect(queue[0].goldReward).toBe(0);
     });
 
     it('builds monster queue from open issues', () => {
@@ -183,6 +247,56 @@ describe('telemetryMapper', () => {
       expect(queue).toHaveLength(2);
       expect(queue[0].archetype).toBe('regressionGolem'); // bug is first
       expect(queue[1].archetype).toBe('backlogWraith'); // enhancement is second
+      expect(queue[0].hp).toBe(queue[0].maxHp);
+      expect(queue[1].hp).toBe(queue[1].maxHp);
+    });
+
+    it('maps documentation labels to debtSlime and unlabeled issues to mysteryCrawler', () => {
+      const issues: RawIssue[] = [
+        {
+          id: 3,
+          number: 3,
+          title: 'Document the formulas',
+          body: null,
+          created_at: '2025-01-01T00:00:00Z',
+          labels: [{ name: 'documentation' }],
+          user: { login: 'user' },
+        },
+        {
+          id: 4,
+          number: 4,
+          title: 'Unlabeled mystery',
+          body: null,
+          created_at: '2025-01-01T00:00:00Z',
+          labels: [],
+          user: { login: 'user' },
+        },
+      ];
+
+      const queue = buildMonsterQueue(issues);
+      expect(queue.map((monster) => monster.archetype).sort()).toEqual([
+        'debtSlime',
+        'mysteryCrawler',
+      ]);
+      expect(queue.every((monster) => Number.isInteger(monster.maxHp))).toBe(true);
+    });
+
+    it('rounds monster HP derived from a fractional age multiplier', () => {
+      const fifteenDaysAgo = new Date(Date.now() - 15 * 86_400_000).toISOString();
+      const queue = buildMonsterQueue([
+        {
+          id: 5,
+          number: 5,
+          title: 'Enhancement',
+          body: null,
+          created_at: fifteenDaysAgo,
+          labels: [{ name: 'enhancement' }],
+          user: { login: 'user' },
+        },
+      ]);
+
+      // 100 * (1 + 0.15 * 15) = 325
+      expect(queue[0].maxHp).toBe(325);
     });
 
     it('filters out pull_request labels', () => {
@@ -239,10 +353,10 @@ describe('telemetryMapper', () => {
       ];
 
       const events = mapToCombatEvents(commits, prs, closed);
-      expect(events).toHaveLength(3); // 1 xpGain + 1 levelUp + 1 monsterDefeated
-      expect(events[0].type).toBe('xpGain');
-      expect(events[1].type).toBe('levelUp');
-      expect(events[2].type).toBe('monsterDefeated');
+      expect(events.map((event) => event.type)).toEqual(['xpGain', 'xpGain', 'monsterDefeated']);
+      // commit: floor(25 * ln(11)) = 59, PR: 50
+      expect(events[0].xp).toBe(59);
+      expect(events[1].xp).toBe(50);
     });
   });
 });

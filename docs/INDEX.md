@@ -3,7 +3,7 @@
 **Project**: Merge & Monsters
 **Last updated**: 2026-11-19
 **Current version**: `0.1.0` (in progress)
-**Branch**: `feature/0.1.0-github-client-Y`
+**Branch**: `fix/0.1.0-checkpoint-1`
 
 > Entry point for agents: `.kiro/steering/agents.md`. Work conventions: `.kiro/steering/conventions.md`.
 
@@ -82,9 +82,9 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 |-----|--------|-------|-------|--------|
 | R01 | `chore/0.1.0-project-foundation` | Y | 0 — Foundation | Completed |
 | R02 | `feature/0.1.0-scaffold-Y` | Y | 1 — Base | Completed |
-| R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | In Review |
-| R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | Planned |
-| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | Planned |
+| R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | Completed |
+| R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | Completed |
+| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | In Review |
 | R06 | `feature/0.1.0-game-store-C` | C | 3 — State | Planned |
 | R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | Planned |
 | R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | Planned |
@@ -105,8 +105,8 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | T01 | `tasks/v0.1.0/01-project-foundation.md` | R01 | Y | Completed |
 | T02 | `tasks/v0.1.0/02-scaffold.md` | R02 | Y | Completed |
 | T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Y | Completed |
-| T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | C | Pending |
-| T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Pending |
+| T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | C | Completed |
+| T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Completed |
 | T06 | `tasks/v0.1.0/06-game-store.md` | R06 | C | Pending |
 | T07 | `tasks/v0.1.0/07-canvas-renderer.md` | R07 | Y | Pending |
 | T08 | `tasks/v0.1.0/08-audio-synth.md` | R08 | C | Pending |
@@ -126,7 +126,9 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 |-----|------|--------|--------|
 | 01 | `history/v0.1.0/01-chore-project-foundation.md` | `chore/0.1.0-project-foundation` | Merged |
 | 02 | `history/v0.1.0/02-feature-scaffold-Y.md` | `feature/0.1.0-scaffold-Y` | Merged |
-| 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | PR Open |
+| 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | Merged |
+| 04 | `history/v0.1.0/04-feature-telemetry-mapper-C.md` | `feature/0.1.0-telemetry-mapper-C` | Merged |
+| 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | PR Open |
 
 ---
 
@@ -134,7 +136,10 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 
 ### Version `0.1.0` — `gotchas/v0.1.0/`
 
-No findings recorded yet.
+| No. | File | Type | Status |
+|-----|------|------|--------|
+| 991 | `gotchas/v0.1.0/991-error-pr-dedup-tostring.md` | error | Resolved |
+| 992 | `gotchas/v0.1.0/992-trap-coauthor-org-email.md` | trap | Resolved |
 
 ---
 
@@ -145,3 +150,4 @@ No findings recorded yet.
 | 2025-01-27 | Initial documentation structure created. ADRs, architecture, roadmap, tasks, history, and gotchas folders for v0.1.0. Steering files in .kiro/. |
 | 2025-01-27 | Roadmap redesigned for two-developer parallel work. 13 branches with owner tags (-Y/-C), 3 checkpoints, file ownership table. Tasks renumbered T01-T13. INDEX updated. |
 | 2026-11-19 | R02 merged. R03 (GitHub client) pushed: ETag cache, sandbox dataset, rate-limit error, unit tests, `vitest.config.ts`. T03 completed. INDEX and roadmap statuses refreshed. |
+| 2026-11-19 | R03 and R04 merged. R05 (Checkpoint 1) fixed seven mapper defects, added the pipeline integration test, closed T04/T05, added gotchas 991 and 992, and dropped agent co-authors from the convention. |

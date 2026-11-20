@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { GameLoop, advanceAnimation, applyCombatEvent } from './GameLoop';
+import { GameLoop, advanceAnimation, applyCombatEvent, eventTypeToSfxType } from './GameLoop';
 import {
   ATTACK_FRAMES,
   COLORS,
@@ -169,5 +169,26 @@ describe('GameLoop lifecycle', () => {
     GameLoop.stop();
 
     vi.unstubAllGlobals();
+  });
+});
+
+describe('eventTypeToSfxType', () => {
+  it('maps attacks to their SFX and critical hits to crit', () => {
+    expect(eventTypeToSfxType({ type: 'heroAttack', damage: 20, timestamp: 0 })).toBe('attack');
+    expect(eventTypeToSfxType({ type: 'heroAttack', damage: 50, timestamp: 0 })).toBe('crit');
+    expect(eventTypeToSfxType({ type: 'monsterAttack', damage: 10, timestamp: 0 })).toBe(
+      'monsterHit'
+    );
+  });
+
+  it('maps defeats and level ups', () => {
+    expect(eventTypeToSfxType({ type: 'monsterDefeated', gold: 13, timestamp: 0 })).toBe(
+      'monsterSlain'
+    );
+    expect(eventTypeToSfxType({ type: 'levelUp', level: 3, timestamp: 0 })).toBe('levelUp');
+  });
+
+  it('keeps XP gains silent', () => {
+    expect(eventTypeToSfxType({ type: 'xpGain', xp: 59, timestamp: 0 })).toBeNull();
   });
 });

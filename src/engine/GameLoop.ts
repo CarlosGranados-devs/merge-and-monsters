@@ -1,5 +1,5 @@
 import { useGameStore } from '../store/useGameStore';
-import type { CombatEvent } from '../types';
+import type { CombatEvent, SfxType } from '../types';
 import {
   ATTACK_FRAMES,
   type AnimationState,
@@ -16,6 +16,7 @@ import {
   createAnimationState,
   drawScene,
 } from './Renderer';
+import { SoundSynth } from './SoundSynth';
 
 let canvas: HTMLCanvasElement | null = null;
 let context: CanvasRenderingContext2D | null = null;
@@ -46,6 +47,22 @@ function spawnFloatingNumber(
   color: string
 ): AnimationState['floatingNumbers'][number] {
   return { x, y, text, color, life: FLOATING_NUMBER_LIFETIME };
+}
+
+/** Map a combat event to the SFX it should play. XP gains stay silent to avoid audio spam. */
+export function eventTypeToSfxType(event: CombatEvent): SfxType | null {
+  switch (event.type) {
+    case 'heroAttack':
+      return (event.damage ?? 0) >= CRIT_DAMAGE_THRESHOLD ? 'crit' : 'attack';
+    case 'monsterAttack':
+      return 'monsterHit';
+    case 'monsterDefeated':
+      return 'monsterSlain';
+    case 'levelUp':
+      return 'levelUp';
+    case 'xpGain':
+      return null;
+  }
 }
 
 /** Translate one combat event into animation effects. Pure aside from the given animation state. */
@@ -147,6 +164,8 @@ function renderFrame(): void {
 
   for (const event of state.drainCombatEvents()) {
     applyCombatEvent(animation, event, canvas.width, canvas.height);
+    const sfx = eventTypeToSfxType(event);
+    if (sfx) SoundSynth.play(sfx);
   }
 
   advanceAnimation(animation);
@@ -177,6 +196,11 @@ function start(target: HTMLCanvasElement): void {
   frameHandle = requestAnimationFrame(frame);
 }
 
+/** Draw one frame immediately (used after a canvas resize). */
+function render(): void {
+  renderFrame();
+}
+
 function stop(): void {
   running = false;
   if (frameHandle !== 0) cancelAnimationFrame(frameHandle);
@@ -185,4 +209,4 @@ function stop(): void {
   context = null;
 }
 
-export const GameLoop = { start, stop };
+export const GameLoop = { start, stop, render };

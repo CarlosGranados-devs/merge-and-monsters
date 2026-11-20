@@ -1,46 +1,34 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { GameLoop } from './engine/GameLoop';
 
 function App() {
   const { t } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Canvas sizing
     const resize = () => {
-      const rect = canvas.parentElement?.getBoundingClientRect();
-      if (!rect) return;
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-
-      // Draw placeholder
-      ctx.fillStyle = 'var(--color-bg)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = 'var(--color-gold)';
-      ctx.font = 'bold 24px monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('Merge & Monsters', canvas.width / 2, canvas.height / 2 - 30);
-
-      ctx.font = '16px monospace';
-      ctx.fillStyle = 'var(--color-text)';
-      ctx.fillText(
-        'Canvas placeholder — game engine will render here',
-        canvas.width / 2,
-        canvas.height / 2 + 20
-      );
+      const rect = container.getBoundingClientRect();
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.max(1, Math.round(rect.width * ratio));
+      canvas.height = Math.max(1, Math.round(rect.height * ratio));
     };
 
     resize();
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
+    const observer = new ResizeObserver(resize);
+    observer.observe(container);
+
+    GameLoop.start(canvas);
+
+    return () => {
+      observer.disconnect();
+      GameLoop.stop();
+    };
   }, []);
 
   return (
@@ -50,7 +38,10 @@ function App() {
         <p className="text-muted">{t('connect.title')}</p>
       </div>
 
-      <div className="relative w-full max-w-4xl aspect-video border-2 border-gold rounded-lg overflow-hidden">
+      <div
+        ref={containerRef}
+        className="relative w-full max-w-4xl aspect-video border-2 border-gold rounded-lg overflow-hidden"
+      >
         <canvas ref={canvasRef} className="block w-full h-full bg-bg" />
         <div className="absolute bottom-4 left-4 right-4 p-4 bg-bg/90 backdrop-blur-sm border border-gold/30 rounded">
           <div className="text-center">

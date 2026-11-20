@@ -26,8 +26,8 @@ owner. Three `fix/` checkpoints merge the two parallel tracks before proceeding.
 | R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | R02 | Completed |
 | R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | R02 | Completed |
 | R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | R03, R04 | In Review |
-| R06 | `feature/0.1.0-game-store-C` | C | 3 — State | R05 | Planned |
-| R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | R05 | Planned |
+| R06 | `feature/0.1.0-game-store-C` | C | 3 — State | R05 | Completed (recovered in R07) |
+| R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | R05 | In Review |
 | R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | R05 | Planned |
 | R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | R06, R07, R08 | Planned |
 | R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | R09 | Planned |

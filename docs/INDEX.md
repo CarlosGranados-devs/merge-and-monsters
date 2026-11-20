@@ -3,7 +3,7 @@
 **Project**: Merge & Monsters
 **Last updated**: 2026-11-19
 **Current version**: `0.1.0` (in progress)
-**Branch**: `fix/0.1.0-checkpoint-1`
+**Branch**: `feature/0.1.0-canvas-renderer-Y`
 
 > Entry point for agents: `.kiro/steering/agents.md`. Work conventions: `.kiro/steering/conventions.md`.
 
@@ -85,8 +85,8 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | Completed |
 | R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | Completed |
 | R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | In Review |
-| R06 | `feature/0.1.0-game-store-C` | C | 3 — State | Planned |
-| R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | Planned |
+| R06 | `feature/0.1.0-game-store-C` | C | 3 — State | Completed (recovered in R07) |
+| R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | In Review |
 | R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | Planned |
 | R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | Planned |
 | R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | Planned |
@@ -107,8 +107,8 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | T03 | `tasks/v0.1.0/03-github-client.md` | R03 | Y | Completed |
 | T04 | `tasks/v0.1.0/04-telemetry-mapper.md` | R04 | C | Completed |
 | T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Completed |
-| T06 | `tasks/v0.1.0/06-game-store.md` | R06 | C | Pending |
-| T07 | `tasks/v0.1.0/07-canvas-renderer.md` | R07 | Y | Pending |
+| T06 | `tasks/v0.1.0/06-game-store.md` | R06 | C | Completed |
+| T07 | `tasks/v0.1.0/07-canvas-renderer.md` | R07 | Y | Completed |
 | T08 | `tasks/v0.1.0/08-audio-synth.md` | R08 | C | Pending |
 | T09 | `tasks/v0.1.0/09-checkpoint-2.md` | R09 | C | Pending |
 | T10 | `tasks/v0.1.0/10-hud-components.md` | R10 | Y | Pending |
@@ -128,7 +128,9 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 02 | `history/v0.1.0/02-feature-scaffold-Y.md` | `feature/0.1.0-scaffold-Y` | Merged |
 | 03 | `history/v0.1.0/03-feature-github-client-Y.md` | `feature/0.1.0-github-client-Y` | Merged |
 | 04 | `history/v0.1.0/04-feature-telemetry-mapper-C.md` | `feature/0.1.0-telemetry-mapper-C` | Merged |
-| 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | PR Open |
+| 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | Merged |
+| 06 | `history/v0.1.0/06-feature-game-store-C.md` | `feature/0.1.0-game-store-C` | Merged (empty) |
+| 07 | `history/v0.1.0/07-feature-canvas-renderer-Y.md` | `feature/0.1.0-canvas-renderer-Y` | Ready for PR |
 
 ---
 
@@ -140,6 +142,7 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 |-----|------|------|--------|
 | 991 | `gotchas/v0.1.0/991-error-pr-dedup-tostring.md` | error | Resolved |
 | 992 | `gotchas/v0.1.0/992-trap-coauthor-org-email.md` | trap | Resolved |
+| 993 | `gotchas/v0.1.0/993-trap-canvas-css-vars.md` | trap | Resolved |
 
 ---
 
@@ -151,3 +154,4 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 2025-01-27 | Roadmap redesigned for two-developer parallel work. 13 branches with owner tags (-Y/-C), 3 checkpoints, file ownership table. Tasks renumbered T01-T13. INDEX updated. |
 | 2026-11-19 | R02 merged. R03 (GitHub client) pushed: ETag cache, sandbox dataset, rate-limit error, unit tests, `vitest.config.ts`. T03 completed. INDEX and roadmap statuses refreshed. |
 | 2026-11-19 | R03 and R04 merged. R05 (Checkpoint 1) fixed seven mapper defects, added the pipeline integration test, closed T04/T05, added gotchas 991 and 992, and dropped agent co-authors from the convention. |
+| 2026-11-19 | R05 merged. R06 merged empty (PR #6 has zero files). R07 added the canvas engine, recovered the Zustand store, closed T06/T07, added gotcha 993, and documented the empty-PR recovery. |

@@ -1,4 +1,8 @@
 {
+  "app": {
+    "title": "Merge & Monsters",
+    "canvasLabel": "Vista del calabozo"
+  },
   "connect": {
     "title": "Introduce un repositorio de GitHub",
     "slugPlaceholder": "propietario/repo",
@@ -6,7 +10,11 @@
     "connectButton": "Conectar repositorio",
     "sandboxButton": "Iniciar Sandbox del calabozo",
     "errorRateLimit": "Límite de tasa alcanzado. Añade un PAT o usa Sandbox.",
-    "errorNotFound": "Repositorio no encontrado. Revisa el slug e inténtalo de nuevo."
+    "errorNotFound": "Repositorio no encontrado. Revisa el slug e inténtalo de nuevo.",
+    "slugLabel": "Repositorio",
+    "patLabel": "Token de acceso personal",
+    "connecting": "Conectando...",
+    "errorInvalidSlug": "Introduce un repositorio como propietario/repo."
   },
   "hud": {
     "hero": "Héroe",
@@ -26,7 +34,9 @@
     "commitXp": "Commit {{sha}} otorga {{xp}} XP.",
     "prXp": "PR #{{number}} fusionado. +{{xp}} XP.",
     "issueClose": "Issue #{{number}} cerrada. {{monster}} cae.",
-    "trainingDummy": "No hay issues abiertos. Dummy de entrenamiento aparecido."
+    "trainingDummy": "No hay issues abiertos. Dummy de entrenamiento aparecido.",
+    "title": "Registro de combate",
+    "empty": "Sin eventos todavía."
   },
   "sandbox": {
     "title": "Controles de Sandbox",

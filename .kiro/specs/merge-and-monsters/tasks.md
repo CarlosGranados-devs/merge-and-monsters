@@ -7,5 +7,5 @@
 - [x] 4. Create Zustand global store (`src/store/useGameStore.ts`) with `localStorage` persistence for processed event IDs
 - [x] 5. Build 60 FPS HTML5 Canvas dungeon renderer (`src/engine/GameLoop.ts` & `Renderer.ts`) with pixel-art sprites, floating damage numbers, and screen shake
 - [ ] 6. Build zero-asset 8-bit Web Audio synthesizer (`src/engine/SoundSynth.ts`) with mute toggle
-- [ ] 7. Build dark obsidian & satin gold HUD (`RepoConnectModal`, `HeroHud`, `CombatLog`, and Sandbox simulation controls)
+- [x] 7. Build dark obsidian & satin gold HUD (`RepoConnectModal`, `HeroHud`, `CombatLog`, and Sandbox simulation controls)
 - [ ] 8. Configure production build and deploy static bundle

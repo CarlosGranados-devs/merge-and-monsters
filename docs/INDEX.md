@@ -1,9 +1,9 @@
 # INDEX — Documentation Map
 
 **Project**: Merge & Monsters
-**Last updated**: 2026-11-19
+**Last updated**: 2026-11-20
 **Current version**: `0.1.0` (in progress)
-**Branch**: `feature/0.1.0-canvas-renderer-Y`
+**Branch**: `feature/0.1.0-hud-components-Y`
 
 > Entry point for agents: `.kiro/steering/agents.md`. Work conventions: `.kiro/steering/conventions.md`.
 
@@ -84,12 +84,12 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | R02 | `feature/0.1.0-scaffold-Y` | Y | 1 — Base | Completed |
 | R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | Completed |
 | R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | Completed |
-| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | In Review |
+| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | Completed |
 | R06 | `feature/0.1.0-game-store-C` | C | 3 — State | Completed (recovered in R07) |
 | R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | In Review |
-| R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | Planned |
-| R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | Planned |
-| R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | Planned |
+| R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | Completed |
+| R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | Completed (wiring finished in R10) |
+| R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | In Review |
 | R11 | `fix/0.1.0-checkpoint-3` | C | CP-3 | Planned |
 | R12 | `chore/0.1.0-review-phase-1` | Y | 5 — Close | Planned |
 | R13 | `chore/release-0.1.0` | C | 5 — Close | Planned |
@@ -109,9 +109,9 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | T05 | `tasks/v0.1.0/05-checkpoint-1.md` | R05 | Y | Completed |
 | T06 | `tasks/v0.1.0/06-game-store.md` | R06 | C | Completed |
 | T07 | `tasks/v0.1.0/07-canvas-renderer.md` | R07 | Y | Completed |
-| T08 | `tasks/v0.1.0/08-audio-synth.md` | R08 | C | Pending |
-| T09 | `tasks/v0.1.0/09-checkpoint-2.md` | R09 | C | Pending |
-| T10 | `tasks/v0.1.0/10-hud-components.md` | R10 | Y | Pending |
+| T08 | `tasks/v0.1.0/08-audio-synth.md` | R08 | C | Completed |
+| T09 | `tasks/v0.1.0/09-checkpoint-2.md` | R09 | C | Completed |
+| T10 | `tasks/v0.1.0/10-hud-components.md` | R10 | Y | Completed |
 | T11 | `tasks/v0.1.0/11-checkpoint-3.md` | R11 | C | Pending |
 | T12 | `tasks/v0.1.0/12-review-phase-1.md` | R12 | Y | Pending |
 | T13 | `tasks/v0.1.0/13-release-0.1.0.md` | R13 | C | Pending |
@@ -130,7 +130,10 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 04 | `history/v0.1.0/04-feature-telemetry-mapper-C.md` | `feature/0.1.0-telemetry-mapper-C` | Merged |
 | 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | Merged |
 | 06 | `history/v0.1.0/06-feature-game-store-C.md` | `feature/0.1.0-game-store-C` | Merged (empty) |
-| 07 | `history/v0.1.0/07-feature-canvas-renderer-Y.md` | `feature/0.1.0-canvas-renderer-Y` | PR Open |
+| 07 | `history/v0.1.0/07-feature-canvas-renderer-Y.md` | `feature/0.1.0-canvas-renderer-Y` | Merged |
+| 08 | `history/v0.1.0/08-feature-audio-synth-C.md` | `feature/0.1.0-audio-synth-C` | Merged |
+| 09 | `history/v0.1.0/09-fix-checkpoint-2.md` | `fix/0.1.0-checkpoint-2` | Merged |
+| 10 | `history/v0.1.0/10-feature-hud-components-Y.md` | `feature/0.1.0-hud-components-Y` | PR Open |
 
 ---
 
@@ -155,3 +158,4 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 2026-11-19 | R02 merged. R03 (GitHub client) pushed: ETag cache, sandbox dataset, rate-limit error, unit tests, `vitest.config.ts`. T03 completed. INDEX and roadmap statuses refreshed. |
 | 2026-11-19 | R03 and R04 merged. R05 (Checkpoint 1) fixed seven mapper defects, added the pipeline integration test, closed T04/T05, added gotchas 991 and 992, and dropped agent co-authors from the convention. |
 | 2026-11-19 | R05 merged. R06 merged empty (PR #6 has zero files). R07 added the canvas engine, recovered the Zustand store, closed T06/T07, added gotcha 993, and documented the empty-PR recovery. |
+| 2026-11-20 | R07/R08/R09 merged (Checkpoint 2 shipped docs only). R10 added the four HUD components, the connect modal, 8 locale keys, SFX wiring, and resize repaint; closed T08/T09/T10. |

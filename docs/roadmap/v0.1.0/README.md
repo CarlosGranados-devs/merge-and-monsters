@@ -2,7 +2,7 @@
 
 **Version**: 0.1.0
 **Status**: In Progress
-**Last updated**: 2026-11-19
+**Last updated**: 2026-11-20
 
 ---
 
@@ -25,12 +25,12 @@ owner. Three `fix/` checkpoints merge the two parallel tracks before proceeding.
 | R02 | `feature/0.1.0-scaffold-Y` | Y | 1 — Base | R01 | Completed |
 | R03 | `feature/0.1.0-github-client-Y` | Y | 2 — Core modules | R02 | Completed |
 | R04 | `feature/0.1.0-telemetry-mapper-C` | C | 2 — Core modules | R02 | Completed |
-| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | R03, R04 | In Review |
+| R05 | `fix/0.1.0-checkpoint-1` | Y | CP-1 | R03, R04 | Completed |
 | R06 | `feature/0.1.0-game-store-C` | C | 3 — State | R05 | Completed (recovered in R07) |
 | R07 | `feature/0.1.0-canvas-renderer-Y` | Y | 3 — State | R05 | Completed |
-| R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | R05 | In Review |
-| R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | R06, R07, R08 | Planned |
-| R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | R09 | Planned |
+| R08 | `feature/0.1.0-audio-synth-C` | C | 3 — State | R05 | Completed |
+| R09 | `fix/0.1.0-checkpoint-2` | C | CP-2 | R06, R07, R08 | Completed (wiring finished in R10) |
+| R10 | `feature/0.1.0-hud-components-Y` | Y | 4 — UI | R09 | In Review |
 | R11 | `fix/0.1.0-checkpoint-3` | C | CP-3 | R10 | Planned |
 | R12 | `chore/0.1.0-review-phase-1` | Y | 5 — Close | R11 | Planned |
 | R13 | `chore/release-0.1.0` | C | 5 — Close | R12 | Planned |

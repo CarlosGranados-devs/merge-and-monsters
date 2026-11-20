@@ -78,6 +78,12 @@ function initialData(): GameStoreData {
   };
 }
 
+/** Total XP required to reach `level`: 0, 100, 300, 600, ... */
+export function xpThresholdForLevel(level: number): number {
+  const steps = Math.max(0, level - 1);
+  return (XP_PER_LEVEL_STEP * steps * (steps + 1)) / 2;
+}
+
 /** Level thresholds grow by 100 XP per level: 100, 300, 600, ... cumulative. */
 export function levelFromXp(xp: number): number {
   let level = 1;

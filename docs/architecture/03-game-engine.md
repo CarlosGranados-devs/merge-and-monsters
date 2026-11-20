@@ -1,6 +1,6 @@
 # Game Engine — Canvas Renderer
 
-**Last updated**: 2025-01-27
+**Last updated**: 2026-11-19
 **Version**: 0.1.0
 
 ---
@@ -19,20 +19,23 @@ Neither module imports React hooks or triggers re-renders. They read game state 
 ```text
 GameLoop.start(canvas: HTMLCanvasElement)
   -> stores canvas ref and 2D context
-  -> starts rAF loop
+  -> resets the animation state
+  -> draws one frame synchronously (no blank canvas while rAF is pending)
+  -> starts the rAF loop
 
 GameLoop.stop()
-  -> cancels rAF handle
+  -> cancels the rAF handle and clears the refs
 
 Each frame:
   1. Read state: useGameStore.getState()
-  2. Consume one pending CombatEvent from the queue (if any)
+  2. Drain pending CombatEvents (state.drainCombatEvents()) and apply them
   3. Advance animation timers (hero, monster, particles, shake, floating numbers)
-  4. Call Renderer.draw(ctx, state, animationState)
-  5. Schedule next frame
+  4. Call drawScene(ctx, width, height, { hero, activeMonster }, animationState)
+  5. Schedule the next frame
 ```
 
 The loop is started once by `App.tsx` after the canvas element mounts. It is stopped on unmount.
+`applyCombatEvent` and `advanceAnimation` are exported so the animation rules can be unit tested.
 
 ---
 
@@ -55,7 +58,7 @@ Sprites are drawn entirely with Canvas 2D API calls (rectangles, arcs, lines). N
 
 ### Screen Shake
 
-On a critical hit event, the canvas context is translated by a random offset within `[-shakeIntensity, +shakeIntensity]` on both axes. Intensity decays by 10% per frame until it reaches zero.
+On a critical hit event, the canvas context is translated by a random offset within `[-shakeIntensity, +shakeIntensity]` on both axes. Intensity decays by 15% per frame (`SHAKE_DECAY` 0.85) until it reaches zero. A hit is critical when its damage is at least `CRIT_DAMAGE_THRESHOLD` (50).
 
 ```text
 shake_intensity = 8   // pixels, on crit
@@ -77,6 +80,7 @@ Each `CombatEvent` with a damage value spawns a floating number:
 
 ```typescript
 interface AnimationState {
+  tick: number;
   heroBobTick: number;
   monsterBobTick: number;
   heroAttacking: boolean;
@@ -84,16 +88,26 @@ interface AnimationState {
   monsterAttacking: boolean;
   monsterAttackTick: number;
   shakeIntensity: number;
-  particles: Particle[];
-  floatingNumbers: FloatingNumber[];
+  particles: Particle[];      // { x, y, vx, vy, life, color }
+  floatingNumbers: FloatingNumber[]; // { x, y, text, color, life }
 }
 ```
+
+Animation constants live in `Renderer.ts`: `BOB_PERIOD` 60 (frame alternates every 30 ticks),
+`ATTACK_FRAMES` 15, `FLOATING_NUMBER_LIFETIME` 40, `PARTICLE_LIFETIME` 30, `PARTICLE_COUNT` 10,
+`SHAKE_INTENSITY` 8, `SHAKE_DECAY` 0.85, `CRIT_DAMAGE_THRESHOLD` 50.
 
 ---
 
 ## Canvas Dimensions
 
-The canvas element is sized to fill its container via CSS. Renderer uses `canvas.width` and `canvas.height` at draw time. On window resize, `App.tsx` updates `canvas.width` and `canvas.height` from `getBoundingClientRect()`.
+The canvas element fills its container via CSS. `App.tsx` sets `canvas.width` and `canvas.height`
+from `getBoundingClientRect()` multiplied by `devicePixelRatio`, and re-runs the resize on a
+`ResizeObserver` callback. The renderer works in device pixels and derives its sprite scale from
+`height` (`clamp(floor(height / 180), 2, 4)`).
+
+All colors are hex literals in `COLORS`; CSS custom properties do not resolve inside canvas styles
+(see `docs/gotchas/v0.1.0/993-trap-canvas-css-vars.md`).
 
 ---
 

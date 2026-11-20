@@ -130,7 +130,7 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 04 | `history/v0.1.0/04-feature-telemetry-mapper-C.md` | `feature/0.1.0-telemetry-mapper-C` | Merged |
 | 05 | `history/v0.1.0/05-fix-checkpoint-1.md` | `fix/0.1.0-checkpoint-1` | Merged |
 | 06 | `history/v0.1.0/06-feature-game-store-C.md` | `feature/0.1.0-game-store-C` | Merged (empty) |
-| 07 | `history/v0.1.0/07-feature-canvas-renderer-Y.md` | `feature/0.1.0-canvas-renderer-Y` | Ready for PR |
+| 07 | `history/v0.1.0/07-feature-canvas-renderer-Y.md` | `feature/0.1.0-canvas-renderer-Y` | PR Open |
 
 ---
 

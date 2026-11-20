@@ -2,7 +2,7 @@
 
 **Branch**: `feature/0.1.0-audio-synth-C`
 **Owner**: C
-**Status**: Pending
+**Status**: Completed
 **Version**: 0.1.0
 
 ---
@@ -24,16 +24,16 @@ Corresponds to task 6 in `.kiro/specs/merge-and-monsters/tasks.md`.
 
 ## Checklist
 
-- [ ] `AudioContext` created lazily on the first `play()` call
-- [ ] `play(type: SfxType)` returns immediately if muted
-- [ ] `play()` resumes a suspended context before scheduling nodes
-- [ ] All 7 SFX types implemented: `attack`, `crit`, `monsterHit`, `levelUp`, `monsterSlain`, `gold`, `uiClick`
-- [ ] Every sound uses an attack-decay gain envelope (no clicks)
-- [ ] `setMuted(muted)` updates Zustand store; `isMuted()` reads it
-- [ ] Oscillator nodes are disconnected after stop (no memory leak)
-- [ ] `SfxType` is a union type exported from `src/types/index.ts`
-- [ ] `pnpm biome check --write .` and `pnpm typecheck` pass
-- [ ] Branch pushed and PR opened
+- [x] `AudioContext` created lazily on the first `play()` call
+- [x] `play(type: SfxType)` returns immediately if muted
+- [x] `play()` resumes a suspended context before scheduling nodes
+- [x] All 7 SFX types implemented: `attack`, `crit`, `monsterHit`, `levelUp`, `monsterSlain`, `gold`, `uiClick`
+- [x] Every sound uses an attack-decay gain envelope (no clicks)
+- [x] `setMuted(muted)` updates Zustand store; `isMuted()` reads it
+- [x] Oscillator nodes are disconnected after stop (no memory leak)
+- [x] `SfxType` is a union type exported from `src/types/index.ts`
+- [x] `pnpm biome check --write .` and `pnpm typecheck` pass
+- [x] Branch pushed and PR opened
 
 ---
 

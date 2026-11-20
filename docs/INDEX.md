@@ -133,7 +133,7 @@ Full plan with parallel-work map, file ownership table, and checkpoint rules: `r
 | 07 | `history/v0.1.0/07-feature-canvas-renderer-Y.md` | `feature/0.1.0-canvas-renderer-Y` | Merged |
 | 08 | `history/v0.1.0/08-feature-audio-synth-C.md` | `feature/0.1.0-audio-synth-C` | Merged |
 | 09 | `history/v0.1.0/09-fix-checkpoint-2.md` | `fix/0.1.0-checkpoint-2` | Merged |
-| 10 | `history/v0.1.0/10-feature-hud-components-Y.md` | `feature/0.1.0-hud-components-Y` | Ready for PR |
+| 10 | `history/v0.1.0/10-feature-hud-components-Y.md` | `feature/0.1.0-hud-components-Y` | PR Open |
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Branch**: `fix/0.1.0-checkpoint-2`
 **Owner**: C
-**Status**: Pending
+**Status**: Completed
 **Version**: 0.1.0
 
 ---
@@ -55,6 +55,15 @@ No new functionality. No new feature code.
 - **Canvas sizing**: `Renderer.ts` uses `canvas.width`/`canvas.height` — verify `App.tsx` sets these after mount.
 - **AudioContext autoplay**: the first `SoundSynth.play()` call must follow a user gesture. In the smoke test, trigger it by clicking a button.
 - **Muted flag sync**: if `store.muted` is `true` on load (persisted), `SoundSynth.isMuted()` must return `true` without a manual toggle.
+
+---
+
+## Outcome
+
+The branch merged a single file (`docs/history/v0.1.0/09-fix-checkpoint-2.md`). The history claimed
+`GameLoop.renderFrame()` played SFX for every combat event, but `GameLoop.ts` was unchanged and
+nothing imported `SoundSynth`. R10 completed the wiring (`eventTypeToSfxType`, `SoundSynth.play`) and
+added tests, so the mute toggle now has an effect.
 
 ---
 

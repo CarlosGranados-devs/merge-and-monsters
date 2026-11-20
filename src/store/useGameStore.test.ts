@@ -9,7 +9,13 @@ vi.mock('../services/githubClient', async (importOriginal) => {
 });
 
 import { getSandboxData } from '../services/githubClient';
-import { PAT_STORAGE_KEY, STORE_STORAGE_KEY, levelFromXp, useGameStore } from './useGameStore';
+import {
+  PAT_STORAGE_KEY,
+  STORE_STORAGE_KEY,
+  levelFromXp,
+  useGameStore,
+  xpThresholdForLevel,
+} from './useGameStore';
 
 const store = () => useGameStore.getState();
 
@@ -189,6 +195,19 @@ describe('useGameStore', () => {
       expect(state.processedIds.size).toBe(0);
       expect(sessionStorage.getItem(PAT_STORAGE_KEY)).toBeNull();
     });
+  });
+});
+
+describe('xpThresholdForLevel', () => {
+  it('matches the cumulative level thresholds', () => {
+    expect(xpThresholdForLevel(1)).toBe(0);
+    expect(xpThresholdForLevel(2)).toBe(100);
+    expect(xpThresholdForLevel(3)).toBe(300);
+    expect(xpThresholdForLevel(4)).toBe(600);
+
+    for (const level of [1, 2, 3, 4, 5]) {
+      expect(levelFromXp(xpThresholdForLevel(level))).toBe(level);
+    }
   });
 });
 

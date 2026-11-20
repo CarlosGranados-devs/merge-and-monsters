@@ -1,4 +1,8 @@
 {
+  "app": {
+    "title": "Merge & Monsters",
+    "canvasLabel": "Dungeon viewport"
+  },
   "connect": {
     "title": "Enter a GitHub Repository",
     "slugPlaceholder": "owner/repo",
@@ -6,7 +10,11 @@
     "connectButton": "Connect Repository",
     "sandboxButton": "Launch Dungeon Sandbox",
     "errorRateLimit": "GitHub rate limit reached. Add a PAT or use Sandbox mode.",
-    "errorNotFound": "Repository not found. Check the slug and try again."
+    "errorNotFound": "Repository not found. Check the slug and try again.",
+    "slugLabel": "Repository",
+    "patLabel": "Personal access token",
+    "connecting": "Connecting...",
+    "errorInvalidSlug": "Enter a repository as owner/repo."
   },
   "hud": {
     "hero": "Hero",
@@ -26,7 +34,9 @@
     "commitXp": "Commit {{sha}} awarded {{xp}} XP.",
     "prXp": "PR #{{number}} merged. +{{xp}} XP.",
     "issueClose": "Issue #{{number}} closed. {{monster}} falls.",
-    "trainingDummy": "No open issues found. Training Dummy spawned."
+    "trainingDummy": "No open issues found. Training Dummy spawned.",
+    "title": "Combat Log",
+    "empty": "No events yet."
   },
   "sandbox": {
     "title": "Sandbox Controls",

@@ -169,6 +169,7 @@ function renderFrame(): void {
   }
 
   advanceAnimation(animation);
+  if (state.attacking && !animation.heroAttacking) state.setAttacking(false);
   drawScene(
     context,
     canvas.width,

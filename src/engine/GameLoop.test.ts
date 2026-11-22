@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { useGameStore } from '../store/useGameStore';
 import { GameLoop, advanceAnimation, applyCombatEvent, eventTypeToSfxType } from './GameLoop';
 import {
   ATTACK_FRAMES,
@@ -168,6 +169,37 @@ describe('GameLoop lifecycle', () => {
     GameLoop.start(canvas);
     GameLoop.stop();
 
+    vi.unstubAllGlobals();
+  });
+
+  it('clears the store attack flag once the attack animation ends', () => {
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+      frames.push(callback);
+      return frames.length;
+    });
+    vi.stubGlobal('cancelAnimationFrame', vi.fn());
+
+    const canvas = document.createElement('canvas');
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    const { ctx } = createMockContext();
+    vi.spyOn(canvas, 'getContext').mockReturnValue(ctx);
+
+    useGameStore.setState({
+      attacking: true,
+      pendingEvents: [{ type: 'heroAttack', damage: 12, timestamp: 0 }],
+    });
+
+    GameLoop.start(canvas);
+    expect(useGameStore.getState().attacking).toBe(true);
+
+    for (let frame = 0; frame < ATTACK_FRAMES; frame += 1) {
+      frames.shift()?.(0);
+    }
+
+    expect(useGameStore.getState().attacking).toBe(false);
+    GameLoop.stop();
     vi.unstubAllGlobals();
   });
 });

@@ -32,6 +32,7 @@ export interface GameStoreActions {
   simulatePrMerge: () => void;
   simulateIssueClose: () => void;
   setMuted: (muted: boolean) => void;
+  setAttacking: (attacking: boolean) => void;
   addCombatLogEntry: (entry: CombatLogEntry) => void;
   advanceMonsterQueue: () => void;
   drainCombatEvents: () => CombatEvent[];
@@ -40,6 +41,8 @@ export interface GameStoreActions {
 
 export interface GameStoreState extends GameStore, GameStoreActions {
   pendingEvents: CombatEvent[];
+  /** True while the engine is playing a hero attack animation. Transient, never persisted. */
+  attacking: boolean;
 }
 
 interface PersistedGameState {
@@ -75,6 +78,7 @@ function initialData(): GameStoreData {
     muted: false,
     processedIds: new Set<string>(),
     pendingEvents: [],
+    attacking: false,
   };
 }
 
@@ -197,6 +201,7 @@ export const useGameStore = create<GameStoreState>()(
 
       launchSandbox: () => {
         setSandboxMode(true);
+        sessionStorage.removeItem(PAT_STORAGE_KEY);
         const data = getSandboxData();
         const mapped = mapRepoData(data, get().hero, get().processedIds);
         set((state) => ({
@@ -227,6 +232,7 @@ export const useGameStore = create<GameStoreState>()(
         set({
           hero: awardXp(state.hero, xp),
           activeMonster: damageMonster(state.activeMonster, damage),
+          attacking: true,
           pendingEvents: [
             ...state.pendingEvents,
             { type: 'xpGain', xp, timestamp },
@@ -251,6 +257,7 @@ export const useGameStore = create<GameStoreState>()(
         set({
           hero: awardXp(state.hero, PR_XP),
           activeMonster: damageMonster(state.activeMonster, PR_XP),
+          attacking: true,
           pendingEvents: [
             ...state.pendingEvents,
             { type: 'xpGain', xp: PR_XP, timestamp },
@@ -292,6 +299,8 @@ export const useGameStore = create<GameStoreState>()(
       },
 
       setMuted: (muted) => set({ muted }),
+
+      setAttacking: (attacking) => set({ attacking }),
 
       addCombatLogEntry: (entry) =>
         set((state) => ({

@@ -10,11 +10,14 @@ interface SandboxControlsProps {
 export function SandboxControls({ disabled = false }: SandboxControlsProps) {
   const { t } = useTranslation();
   const sandboxMode = useGameStore((state) => state.sandboxMode);
+  const attacking = useGameStore((state) => state.attacking);
   const simulateCommit = useGameStore((state) => state.simulateCommit);
   const simulatePrMerge = useGameStore((state) => state.simulatePrMerge);
   const simulateIssueClose = useGameStore((state) => state.simulateIssueClose);
 
   if (!sandboxMode) return null;
+
+  const isDisabled = disabled || attacking;
 
   const run = (action: () => void) => () => {
     action();
@@ -36,7 +39,7 @@ export function SandboxControls({ disabled = false }: SandboxControlsProps) {
         <button
           type="button"
           className={buttonClass}
-          disabled={disabled}
+          disabled={isDisabled}
           onClick={run(simulateCommit)}
         >
           {t('sandbox.simulateCommit')}
@@ -44,7 +47,7 @@ export function SandboxControls({ disabled = false }: SandboxControlsProps) {
         <button
           type="button"
           className={buttonClass}
-          disabled={disabled}
+          disabled={isDisabled}
           onClick={run(simulatePrMerge)}
         >
           {t('sandbox.simulatePr')}
@@ -52,7 +55,7 @@ export function SandboxControls({ disabled = false }: SandboxControlsProps) {
         <button
           type="button"
           className={buttonClass}
-          disabled={disabled}
+          disabled={isDisabled}
           onClick={run(simulateIssueClose)}
         >
           {t('sandbox.simulateIssue')}

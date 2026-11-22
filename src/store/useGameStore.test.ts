@@ -58,6 +58,16 @@ describe('useGameStore', () => {
       expect(store().hero.xp).toBe(firstXp);
       expect(store().combatLog).toHaveLength(7);
     });
+
+    it('drops any stored PAT when entering sandbox mode', async () => {
+      fetchRepoDataMock.mockResolvedValue({ ...getSandboxData(), slug: 'octo/repo' });
+      await store().connect('octo/repo', 'ghp_sandbox_secret');
+      expect(sessionStorage.getItem(PAT_STORAGE_KEY)).toBe('ghp_sandbox_secret');
+
+      store().launchSandbox();
+
+      expect(sessionStorage.getItem(PAT_STORAGE_KEY)).toBeNull();
+    });
   });
 
   describe('connect', () => {
@@ -103,6 +113,16 @@ describe('useGameStore', () => {
       expect(after.hero.xp).toBeGreaterThan(before.hero.xp);
       expect(after.activeMonster?.hp).toBeLessThan(monsterHp);
       expect(after.pendingEvents.map((event) => event.type)).toEqual(['xpGain', 'heroAttack']);
+      expect(after.attacking).toBe(true);
+    });
+
+    it('clears the attack flag when the engine reports the animation ended', () => {
+      store().launchSandbox();
+      store().simulateCommit();
+
+      expect(store().attacking).toBe(true);
+      store().setAttacking(false);
+      expect(store().attacking).toBe(false);
     });
 
     it('ignores simulation controls outside sandbox mode', () => {
